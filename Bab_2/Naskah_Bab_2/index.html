@@ -1,0 +1,1635 @@
+
+<!doctype html>
+<html lang="id" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+        <meta name="author" content="Ucok, S.Kom., MT">
+      
+      
+      
+        <link rel="prev" href="../../Bab_1/Naskah_Bab_1/">
+      
+      
+        <link rel="next" href="../../Bab_3/Naskah_Bab_3/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.1">
+    
+    
+      
+        <title>Bab 2 (Socket API) - Buku Ajar Pemrograman Jaringan</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="teal" data-md-color-accent="purple">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#bab-2-socket-api-dasar" class="md-skip">
+          Lewati ke isi
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="Buku Ajar Pemrograman Jaringan" class="md-header__button md-logo" aria-label="Buku Ajar Pemrograman Jaringan" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Buku Ajar Pemrograman Jaringan
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Bab 2 (Socket API)
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="teal" data-md-color-accent="purple"  aria-label="Ganti ke Mode Gelap"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Ganti ke Mode Gelap" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="teal" data-md-color-accent="lime"  aria-label="Ganti ke Mode Terang"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Ganti ke Mode Terang" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Cari" placeholder="Cari" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Cari">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Kosongkan" aria-label="Kosongkan" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Mempersiapkan pencarian
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tab" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Dashboard
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../00_Pengantar/" class="md-tabs__link">
+          
+  
+  
+  Pendahuluan
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../../Bab_1/Naskah_Bab_1/" class="md-tabs__link">
+          
+  
+  
+  Materi Pembelajaran
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../16_Daftar_Pustaka/" class="md-tabs__link">
+          
+  
+  
+  Referensi
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigasi" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Buku Ajar Pemrograman Jaringan" class="md-nav__button md-logo" aria-label="Buku Ajar Pemrograman Jaringan" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Buku Ajar Pemrograman Jaringan
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Dashboard
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Pendahuluan
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Pendahuluan
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../00_Pengantar/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Kata Pengantar
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../00_Metadata_Buku/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Metadata Buku
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Materi Pembelajaran
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Materi Pembelajaran
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Bab_1/Naskah_Bab_1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Bab 1 (Konsep Dasar)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Bab 2 (Socket API)
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Bab 2 (Socket API)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Daftar isi">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Daftar isi
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#21-pengantar-jembatan-antara-aplikasi-dan-jaringan" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.1 Pengantar: Jembatan antara Aplikasi dan Jaringan
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#22-anatomi-hubungan-client-server" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.2 Anatomi Hubungan Client-Server
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.2 Anatomi Hubungan Client-Server">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#a-sisi-server-the-passive-listener" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        A. Sisi Server (The Passive Listener)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#b-sisi-client-the-active-initiator" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        B. Sisi Client (The Active Initiator)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#23-konsep-blocking-vs-non-blocking-io" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.3 Konsep Blocking vs Non-Blocking I/O
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#24-encoding-decoding-bahasa-data" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.4 Encoding &amp; Decoding: Bahasa Data
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#25-studi-kasus-hello-world-socket" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.5 Studi Kasus: Hello World Socket
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.5 Studi Kasus: Hello World Socket">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#strategi-kode" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Strategi Kode
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Strategi Kode">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#implementasi-server-latihan_2_serverpy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Implementasi Server (latihan_2_server.py)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#implementasi-client-latihan_2_clientpy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Implementasi Client (latihan_2_client.py)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#26-tugas-mandiri-critical-thinking" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.6 Tugas Mandiri (Critical Thinking)
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Bab_3/Naskah_Bab_3/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Bab 3 (TCP Chat)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Bab_4/Naskah_Bab_4/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Bab 4 (UDP Streaming)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Bab_5/Naskah_Bab_5/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Bab 5 (Framing & Error)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Bab_6/Naskah_Bab_6/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Bab 6 (Threading)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Bab_7/Naskah_Bab_7/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Bab 7 (Serialisasi JSON)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Bab_8/Naskah_Bab_8/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Bab 8 (Async IO)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Bab_9/Naskah_Bab_9/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Bab 9 (IO Multiplexing)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Bab_10/Naskah_Bab_10/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Bab 10 (HTTP Server)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Bab_11/Naskah_Bab_11/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Bab 11 (REST API)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Bab_12/Naskah_Bab_12/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Bab 12 (WebSocket)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Bab_13/Naskah_Bab_13/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Bab 13 (Network Security)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Bab_14/Naskah_Bab_14/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Bab 14 (IoT MQTT)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Bab_15/Naskah_Bab_15/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Bab 15 (Capstone Project)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Referensi
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Referensi
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../16_Daftar_Pustaka/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Daftar Pustaka
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../17_Glosarium/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Glosarium
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Daftar isi">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Daftar isi
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#21-pengantar-jembatan-antara-aplikasi-dan-jaringan" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.1 Pengantar: Jembatan antara Aplikasi dan Jaringan
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#22-anatomi-hubungan-client-server" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.2 Anatomi Hubungan Client-Server
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.2 Anatomi Hubungan Client-Server">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#a-sisi-server-the-passive-listener" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        A. Sisi Server (The Passive Listener)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#b-sisi-client-the-active-initiator" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        B. Sisi Client (The Active Initiator)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#23-konsep-blocking-vs-non-blocking-io" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.3 Konsep Blocking vs Non-Blocking I/O
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#24-encoding-decoding-bahasa-data" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.4 Encoding &amp; Decoding: Bahasa Data
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#25-studi-kasus-hello-world-socket" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.5 Studi Kasus: Hello World Socket
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.5 Studi Kasus: Hello World Socket">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#strategi-kode" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Strategi Kode
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Strategi Kode">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#implementasi-server-latihan_2_serverpy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Implementasi Server (latihan_2_server.py)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#implementasi-client-latihan_2_clientpy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Implementasi Client (latihan_2_client.py)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#26-tugas-mandiri-critical-thinking" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.6 Tugas Mandiri (Critical Thinking)
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<p><strong>Matakuliah: Pemrograman Jaringan</strong>
+<strong>Dosen: Ucok, S.Kom., MT</strong></p>
+<h1 id="bab-2-socket-api-dasar">Bab 2: Socket API Dasar</h1>
+<blockquote>
+<p><strong>Capaian Pembelajaran (Sub-CPMK):</strong></p>
+<p>Setelah menyelesaikan bab ini, mahasiswa diharapkan mampu:
+1.  <strong>Mengoperasikan</strong> fungsi-fungsi utama dalam Socket API (<code>bind</code>, <code>listen</code>, <code>accept</code>, <code>connect</code>, <code>send</code>, <code>recv</code>).
+2.  <strong>Mendemonstrasikan</strong> mekanisme pertukaran data sederhana antara Client dan Server.
+3.  <strong>Menganalisis</strong> perbedaan perilaku antara <em>Blocking I/O</em> dan <em>Non-Blocking I/O</em>.
+4.  <strong>Menerapkan</strong> encoding dan decoding yang tepat untuk transmisi data jaringan.</p>
+</blockquote>
+<h2 id="21-pengantar-jembatan-antara-aplikasi-dan-jaringan">2.1 Pengantar: Jembatan antara Aplikasi dan Jaringan</h2>
+<p>Pada Bab 1, kita telah membedah lapisan-lapisan teoritis jaringan (OSI Layer). Di Bab ini, kita akan turun ke lapangan praktik. Pertanyaan mendasarnya adalah: <em>Bagaimana cara kode program Python kita "berbicara" dengan kartu jaringan (Network Interface Card)?</em></p>
+<p>Jawabannya adalah <strong>Socket API</strong>.</p>
+<p>Bayangkan Socket API sebagai sebuah <strong>"Pintu Elektrik"</strong> atau <strong>"Stopkontak"</strong>.
+*   Di dunia nyata, jika Anda ingin menyalakan TV, Anda tidak perlu tahu bagaimana listrik dibangkitkan di PLTU. Anda cukup colokkan kabel ke stopkontak standar.
+*   Di dunia pemrograman, jika Anda ingin mengirim data ke internet, Anda tidak perlu memprogram sinyal listrik di kabel LAN. Anda cukup "mencolokkan" aplikasi Anda ke Socket API yang disediakan oleh Sistem Operasi. Modul <code>socket</code> di Python adalah antarmuka standar tersebut.</p>
+<h2 id="22-anatomi-hubungan-client-server">2.2 Anatomi Hubungan Client-Server</h2>
+<p>Sebagian besar aplikasi jaringan modern (Web, Email, Database) bekerja dengan arsitektur <strong>Client-Server</strong>. Memahami peran keduanya sangat krusial sebelum menulis baris kode pertama.</p>
+<p>Mari kita gunakan <strong>Analogi Resepsionis Hotel</strong> untuk memahami alur kerjanya:</p>
+<blockquote>
+<p><strong>[Gambar: Ilustrasi kartun yang membandingkan alur Socket dengan alur tamu check-in di hotel]</strong></p>
+</blockquote>
+<h3 id="a-sisi-server-the-passive-listener">A. Sisi Server (The Passive Listener)</h3>
+<p>Server bertindak seperti sebuah <strong>Hotel</strong> yang harus siap sedia 24 jam. Ia bersifat pasif, artinya ia menunggu, bukan mencari.
+Langkah-langkah logis yang harus dilakukan Server:</p>
+<ol>
+<li><strong><code>socket()</code> - Membangun Gedung:</strong> Server membuat objek socket. Ini seperti mendirikan bangunan hotel.</li>
+<li><strong><code>bind()</code> - Mengklaim Alamat:</strong> Server menentukan di mana ia beroperasi (IP Address) dan di pintu nomor berapa (Port). Tanpa <em>bind</em>, tamu (client) tidak akan tahu ke mana harus datang.</li>
+<li><strong><code>listen()</code> - Membuka Layanan:</strong> Server menyatakan dirinya "BUKA" dan siap menerima antrean tamu. Parameter <em>backlog</em> menentukan berapa panjang antrean yang diperbolehkan di lobi sebelum satpam menolak tamu baru.</li>
+<li><strong><code>accept()</code> - Resepsionis Menjawab:</strong> Ini adalah momen kritis. Saat ada tamu datang, resepsionis (server) menyapanya.<ul>
+<li><em>Penting:</em> Fungsi ini menghasilkan <strong>koneksi khusus</strong> (socket baru) untuk tamu tersebut. Jadi, resepsionis utama tetap <em>standby</em> di meja depan, sementara tamu tadi dilayani oleh pelayan khusus di koneksi yang baru terbentuk.</li>
+</ul>
+</li>
+<li><strong><code>recv()</code> / <code>send()</code> - Percakapan:</strong> Terjadi pertukaran informasi (data).</li>
+<li><strong><code>close()</code> - Tamu Pulang:</strong> Sesi berakhir, kamar dibersihkan.</li>
+</ol>
+<h3 id="b-sisi-client-the-active-initiator">B. Sisi Client (The Active Initiator)</h3>
+<p>Client bertindak seperti <strong>Tamu Hotel</strong>. Ia bersifat aktif karena dialah yang memulai inisiatif untuk datang.
+Langkah-langkahnya lebih sederhana:</p>
+<ol>
+<li><strong><code>socket()</code>:</strong> Tamu bersiap (keluar rumah).</li>
+<li><strong><code>connect()</code>:</strong> Tamu mendatangi alamat hotel (IP Server) dan mengetuk pintu tertentu (Port Server).</li>
+<li><strong><code>send()</code> / <code>recv()</code>:</strong> Tamu berbicara dengan resepsionis.</li>
+<li><strong><code>close()</code>:</strong> Tamu pulang.</li>
+</ol>
+<h2 id="23-konsep-blocking-vs-non-blocking-io">2.3 Konsep Blocking vs Non-Blocking I/O</h2>
+<p>Salah satu jebakan terbesar bagi pemula di pemrograman jaringan adalah sifat dasar socket yang <strong>Blocking</strong>.</p>
+<p><strong>Apa itu Blocking?</strong>
+Bayangkan Anda menelepon Customer Service bank. Anda harus menunggu (holding) sambil mendengarkan musik sampai ada CS yang mengangkat. Selama menunggu, Anda <strong>tidak bisa melakukan hal lain</strong>. Anda terpaku di situ.
+*   Dalam kode: Saat program memanggil <code>accept()</code> atau <code>recv()</code>, program akan <strong>berhenti total (hang/freeze)</strong> di baris tersebut sampai ada data yang masuk. Jika tidak ada yang connect selama 1 jam, program diam selama 1 jam.</p>
+<p><strong>Konteks Industri:</strong>
+Untuk server yang melayani jutaan user (seperti WhatsApp), sifat <em>blocking</em> ini berbahaya. Jika server sibuk melayani User A dan "memblokir" diri, maka User B, C, dan D tidak akan terlayani. Solusinya adalah <em>Non-Blocking I/O</em> atau <em>Concurrency</em> yang akan kita bahas mendalam di Bab 6 dan 8.</p>
+<h2 id="24-encoding-decoding-bahasa-data">2.4 Encoding &amp; Decoding: Bahasa Data</h2>
+<p>Jaringan komputer tidak mengerti huruf 'A', 'B', atau emoji. Jaringan hanya mengerti arus listrik on/off yang direpresentasikan sebagai <strong>Bytes</strong> (urutan angka biner).</p>
+<p>Oleh karena itu, ada aturan wajib: <strong>"String harus di-Encode sebelum dikirim, dan Bytes harus di-Decode setelah diterima."</strong></p>
+<ul>
+<li><strong>String (Human Readable):</strong> "Halo Dunia"</li>
+<li><strong>Proses Encode (UTF-8):</strong> Mengubah "Halo" menjadi <code>b'\x48\x61\x6c\x6f'</code> (Bytes).</li>
+<li><strong>Kabel Jaringan:</strong> Mengirim bytes tersebut.</li>
+<li><strong>Proses Decode:</strong> Menerjemahkan kembali bytes menjadi "Halo".</li>
+</ul>
+<p>Jika Anda lupa melakukan ini, Python akan melempar <code>TypeError: a bytes-like object is required, not 'str'</code>.</p>
+<h2 id="25-studi-kasus-hello-world-socket">2.5 Studi Kasus: Hello World Socket</h2>
+<p>Mari kita implementasikan teori di atas ke dalam kode nyata. Kita akan membuat sistem komunikasi satu arah sederhana.</p>
+<h3 id="strategi-kode">Strategi Kode</h3>
+<p>Kita butuh dua terminal terpisah.
+1.  <strong>Terminal 1 (Server):</strong> Dijalankan duluan. Ia akan <em>stuck</em> di posisi <code>accept()</code> menunggu tamu.
+2.  <strong>Terminal 2 (Client):</strong> Dijalankan kemudian. Begitu ia jalan, Server akan "bangun", memproses pesan, lalu keduanya selesai.</p>
+<h4 id="implementasi-server-latihan_2_serverpy">Implementasi Server (<code>latihan_2_server.py</code>)</h4>
+<p>Perhatikan komentar pada kode untuk memahami <em>state</em> program di tiap baris.</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">import</span> <span class="nn">socket</span>
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="c1"># 1. Membuat Soket (Domain: IPv4, Tipe: TCP)</span>
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="n">server_socket</span> <span class="o">=</span> <span class="n">socket</span><span class="o">.</span><span class="n">socket</span><span class="p">(</span><span class="n">socket</span><span class="o">.</span><span class="n">AF_INET</span><span class="p">,</span> <span class="n">socket</span><span class="o">.</span><span class="n">SOCK_STREAM</span><span class="p">)</span>
+</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>
+</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="c1"># 2. Binding (Mengikat ke alamat localhost port 12345)</span>
+</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="c1"># localhost artinya server hanya bisa diakses dari komputer ini saja (aman untuk latihan)</span>
+</span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a><span class="n">server_socket</span><span class="o">.</span><span class="n">bind</span><span class="p">((</span><span class="s1">&#39;localhost&#39;</span><span class="p">,</span> <span class="mi">12345</span><span class="p">))</span>
+</span><span id="__span-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>
+</span><span id="__span-0-10"><a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a><span class="c1"># 3. Listening (Mempersiapkan antrian, max 1 antrian)</span>
+</span><span id="__span-0-11"><a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a><span class="n">server_socket</span><span class="o">.</span><span class="n">listen</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+</span><span id="__span-0-12"><a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Server: Saya siap dan sedang menunggu tamu di port 12345...&quot;</span><span class="p">)</span>
+</span><span id="__span-0-13"><a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a>
+</span><span id="__span-0-14"><a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a><span class="c1"># 4. Accepting (BLOCKING CALL)</span>
+</span><span id="__span-0-15"><a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a><span class="c1"># Program akan BERHENTI di sini sampai ada Client yang connect.</span>
+</span><span id="__span-0-16"><a id="__codelineno-0-16" name="__codelineno-0-16" href="#__codelineno-0-16"></a><span class="n">conn</span><span class="p">,</span> <span class="n">addr</span> <span class="o">=</span> <span class="n">server_socket</span><span class="o">.</span><span class="n">accept</span><span class="p">()</span>
+</span><span id="__span-0-17"><a id="__codelineno-0-17" name="__codelineno-0-17" href="#__codelineno-0-17"></a><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Server: Tamu datang dari alamat </span><span class="si">{</span><span class="n">addr</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</span><span id="__span-0-18"><a id="__codelineno-0-18" name="__codelineno-0-18" href="#__codelineno-0-18"></a>
+</span><span id="__span-0-19"><a id="__codelineno-0-19" name="__codelineno-0-19" href="#__codelineno-0-19"></a><span class="c1"># 5. Komunikasi Data</span>
+</span><span id="__span-0-20"><a id="__codelineno-0-20" name="__codelineno-0-20" href="#__codelineno-0-20"></a><span class="c1"># Terima data mentah (bytes), lalu decode ke string</span>
+</span><span id="__span-0-21"><a id="__codelineno-0-21" name="__codelineno-0-21" href="#__codelineno-0-21"></a><span class="n">msg</span> <span class="o">=</span> <span class="n">conn</span><span class="o">.</span><span class="n">recv</span><span class="p">(</span><span class="mi">1024</span><span class="p">)</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s1">&#39;utf-8&#39;</span><span class="p">)</span>
+</span><span id="__span-0-22"><a id="__codelineno-0-22" name="__codelineno-0-22" href="#__codelineno-0-22"></a><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Server: Tamu berkata &#39;</span><span class="si">{</span><span class="n">msg</span><span class="si">}</span><span class="s2">&#39;&quot;</span><span class="p">)</span>
+</span><span id="__span-0-23"><a id="__codelineno-0-23" name="__codelineno-0-23" href="#__codelineno-0-23"></a>
+</span><span id="__span-0-24"><a id="__codelineno-0-24" name="__codelineno-0-24" href="#__codelineno-0-24"></a><span class="c1"># Kirim balasan (jangan lupa encode ke bytes)</span>
+</span><span id="__span-0-25"><a id="__codelineno-0-25" name="__codelineno-0-25" href="#__codelineno-0-25"></a><span class="n">conn</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="s2">&quot;Halo Tamu, salam kenal!&quot;</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s1">&#39;utf-8&#39;</span><span class="p">))</span>
+</span><span id="__span-0-26"><a id="__codelineno-0-26" name="__codelineno-0-26" href="#__codelineno-0-26"></a>
+</span><span id="__span-0-27"><a id="__codelineno-0-27" name="__codelineno-0-27" href="#__codelineno-0-27"></a><span class="c1"># 6. Menutup Koneksi</span>
+</span><span id="__span-0-28"><a id="__codelineno-0-28" name="__codelineno-0-28" href="#__codelineno-0-28"></a><span class="n">conn</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+</span><span id="__span-0-29"><a id="__codelineno-0-29" name="__codelineno-0-29" href="#__codelineno-0-29"></a><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Server: Sesi selesai.&quot;</span><span class="p">)</span>
+</span></code></pre></div>
+<h4 id="implementasi-client-latihan_2_clientpy">Implementasi Client (<code>latihan_2_client.py</code>)</h4>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="kn">import</span> <span class="nn">socket</span>
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>
+</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="c1"># 1. Membuat Soket</span>
+</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="n">client_socket</span> <span class="o">=</span> <span class="n">socket</span><span class="o">.</span><span class="n">socket</span><span class="p">(</span><span class="n">socket</span><span class="o">.</span><span class="n">AF_INET</span><span class="p">,</span> <span class="n">socket</span><span class="o">.</span><span class="n">SOCK_STREAM</span><span class="p">)</span>
+</span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>
+</span><span id="__span-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a><span class="c1"># 2. Connect (Mengetuk pintu server)</span>
+</span><span id="__span-1-7"><a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a><span class="c1"># Pastikan IP dan Port SAMA PERSIS dengan server</span>
+</span><span id="__span-1-8"><a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Client: Mencoba menghubungi server...&quot;</span><span class="p">)</span>
+</span><span id="__span-1-9"><a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a><span class="n">client_socket</span><span class="o">.</span><span class="n">connect</span><span class="p">((</span><span class="s1">&#39;localhost&#39;</span><span class="p">,</span> <span class="mi">12345</span><span class="p">))</span>
+</span><span id="__span-1-10"><a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a>
+</span><span id="__span-1-11"><a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a><span class="c1"># 3. Kirim Pesan</span>
+</span><span id="__span-1-12"><a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a><span class="n">pesan</span> <span class="o">=</span> <span class="s2">&quot;Halo Server! Ini percobaan pertama saya.&quot;</span>
+</span><span id="__span-1-13"><a id="__codelineno-1-13" name="__codelineno-1-13" href="#__codelineno-1-13"></a><span class="n">client_socket</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="n">pesan</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s1">&#39;utf-8&#39;</span><span class="p">))</span> <span class="c1"># Encode string ke bytes</span>
+</span><span id="__span-1-14"><a id="__codelineno-1-14" name="__codelineno-1-14" href="#__codelineno-1-14"></a>
+</span><span id="__span-1-15"><a id="__codelineno-1-15" name="__codelineno-1-15" href="#__codelineno-1-15"></a><span class="c1"># 4. Terima Balasan</span>
+</span><span id="__span-1-16"><a id="__codelineno-1-16" name="__codelineno-1-16" href="#__codelineno-1-16"></a><span class="n">response</span> <span class="o">=</span> <span class="n">client_socket</span><span class="o">.</span><span class="n">recv</span><span class="p">(</span><span class="mi">1024</span><span class="p">)</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s1">&#39;utf-8&#39;</span><span class="p">)</span> <span class="c1"># Decode bytes ke string</span>
+</span><span id="__span-1-17"><a id="__codelineno-1-17" name="__codelineno-1-17" href="#__codelineno-1-17"></a><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Client: Mendapat balasan &#39;</span><span class="si">{</span><span class="n">response</span><span class="si">}</span><span class="s2">&#39;&quot;</span><span class="p">)</span>
+</span><span id="__span-1-18"><a id="__codelineno-1-18" name="__codelineno-1-18" href="#__codelineno-1-18"></a>
+</span><span id="__span-1-19"><a id="__codelineno-1-19" name="__codelineno-1-19" href="#__codelineno-1-19"></a><span class="c1"># 5. Tutup</span>
+</span><span id="__span-1-20"><a id="__codelineno-1-20" name="__codelineno-1-20" href="#__codelineno-1-20"></a><span class="n">client_socket</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+</span></code></pre></div>
+<h2 id="26-tugas-mandiri-critical-thinking">2.6 Tugas Mandiri (Critical Thinking)</h2>
+<p>Cobalah eksperimen berikut untuk menguji pemahaman Anda:</p>
+<ol>
+<li><strong>Analisis Error:</strong> Jalankan <code>client.py</code> TANPA menjalankan <code>server.py</code> terlebih dahulu. Catat pesan error yang muncul. Mengapa error itu terjadi secara logis? (Refleksikan langkah <code>connect</code>).</li>
+<li><strong>Modifikasi Protokol:</strong> Ubah kode agar Client bisa mengirim <strong>dua kali</strong> pesan sebelum Server membalas. Apakah Server perlu memanggil <code>recv()</code> dua kali juga? Apa yang terjadi jika Server hanya <code>recv()</code> satu kali?</li>
+<li><strong>Investigasi Port:</strong> Coba ubah Port di server menjadi <code>80</code>. Kemungkinan besar akan gagal/acces denied (terutama di Linux/Mac/Windows Admin). Mengapa Port 80 spesial? (Hubungkan dengan materi <em>Well-known Ports</em> di Bab 1).</li>
+</ol>
+<hr />
+<p><strong>Navigasi:</strong>
+<a href="../../Bab_1/Naskah_Bab_1/">Naskah_Bab_1</a> | [[00_Dashboard]] | <a href="../../Bab_3/Naskah_Bab_3/">Naskah_Bab_3</a></p>
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Kembali ke atas
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; 2026 Universitas Indonesia Timur
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.tabs", "navigation.sections", "navigation.top", "search.suggest", "search.highlight", "content.code.copy"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Tersalin ke clipboard", "clipboard.copy": "Salin ke clipboard", "search.result.more.one": "1 lagi di halaman ini", "search.result.more.other": "# lagi di halaman ini", "search.result.none": "Tidak ada dokumen yang sesuai", "search.result.one": "1 dokumen ditemukan", "search.result.other": "# dokumen ditemukan", "search.result.placeholder": "Ketik untuk mulai pencarian", "search.result.term.missing": "Tidak ada", "select.version": "Pilih versi"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+        <script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+      
+    
+  </body>
+</html>

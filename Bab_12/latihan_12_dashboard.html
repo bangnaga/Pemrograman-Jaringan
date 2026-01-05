@@ -1,0 +1,54 @@
+<!-- Credit: Fikom UIT -->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Real-time Dashboard</title>
+    <style>
+        body { font-family: sans-serif; text-align: center; margin-top: 50px; }
+        .card { 
+            display: inline-block; padding: 20px; margin: 10px; 
+            border: 1px solid #ccc; border-radius: 8px; width: 200px;
+        }
+        .price { font-size: 2em; font-weight: bold; color: green; }
+    </style>
+</head>
+<body>
+    <h1>Live Market Data (WebSocket)</h1>
+    <div id="status">Status: Disconnected</div>
+    
+    <div class="card">
+        <h3>Saham A</h3>
+        <div id="priceA" class="price">Waiting...</div>
+    </div>
+    
+    <div class="card">
+        <h3>Saham B</h3>
+        <div id="priceB" class="price">Waiting...</div>
+    </div>
+
+    <script>
+        const statusDiv = document.getElementById('status');
+        const priceA = document.getElementById('priceA');
+        const priceB = document.getElementById('priceB');
+
+        // Koneksi ke Python Server
+        const ws = new WebSocket("ws://localhost:8765");
+
+        ws.onopen = () => {
+            statusDiv.textContent = "Status: Connected";
+            statusDiv.style.color = "blue";
+        };
+
+        ws.onmessage = (event) => {
+            const data = JSON.parse(event.data);
+            priceA.textContent = data.saham_A;
+            priceB.textContent = data.saham_B;
+        };
+
+        ws.onclose = () => {
+            statusDiv.textContent = "Status: Disconnected";
+            statusDiv.style.color = "red";
+        };
+    </script>
+</body>
+</html>
